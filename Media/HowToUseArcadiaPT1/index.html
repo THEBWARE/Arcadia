@@ -10,11 +10,16 @@
             padding: 0;
             overflow: hidden;
             background-color: #000;
+            height: 100vh;
         }
-        video {
+        #video-container {
             position: fixed;
             top: 0;
             left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        video {
             width: 100%;
             height: 100%;
             object-fit: contain;
@@ -22,35 +27,42 @@
     </style>
 </head>
 <body>
-    <video id="videoPlayer" autoplay muted loop>
-        <source src="https://github.com/THEBWARE/Cevor/releases/download/Media/Recording.2025-03-31.202909.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
+    <div id="video-container">
+        <video id="videoPlayer" controls autoplay muted>
+            <source src="https://github.com/THEBWARE/Cevor/releases/download/Media/Recording.2025-03-31.202909.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
 
     <script>
         const video = document.getElementById('videoPlayer');
         
-        // Attempt to enter fullscreen automatically
-        function requestFullscreen() {
-            if (video.requestFullscreen) {
-                video.requestFullscreen().catch(e => console.log(e));
-            } else if (video.webkitRequestFullscreen) { /* Safari */
-                video.webkitRequestFullscreen();
-            } else if (video.msRequestFullscreen) { /* IE11 */
-                video.msRequestFullscreen();
+        // Function to enter fullscreen
+        function enterFullscreen() {
+            const elem = document.documentElement;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen().catch(e => console.log(e));
+            } else if (elem.webkitRequestFullscreen) { /* Safari */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE11 */
+                elem.msRequestFullscreen();
             }
         }
         
-        // Try to play video and enter fullscreen when page loads
-        document.addEventListener('DOMContentLoaded', () => {
-            video.play().catch(e => console.log("Autoplay prevented:", e));
-            requestFullscreen();
+        // Try to enter fullscreen when video starts playing
+        video.addEventListener('play', () => {
+            enterFullscreen();
         });
         
-        // Also try when user clicks anywhere (to handle autoplay restrictions)
+        // Also try when page loads (may not work due to browser restrictions)
+        document.addEventListener('DOMContentLoaded', () => {
+            video.play().catch(e => console.log("Autoplay prevented:", e));
+        });
+        
+        // Click anywhere to retry fullscreen
         document.addEventListener('click', () => {
-            video.play();
-            requestFullscreen();
+            enterFullscreen();
+            video.play().catch(e => console.log(e));
         });
     </script>
 </body>
