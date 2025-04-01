@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fullscreen Video Embed</title>
+    <title>How To Use Arcadia Part 1</title>
     <style>
         body {
             margin: 0;
@@ -11,83 +11,46 @@
             overflow: hidden;
             background-color: #000;
         }
-        #video-container {
+        video {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        video {
-            width: 100%;
-            height: 100%;
             object-fit: contain;
-        }
-        #fullscreen-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            padding: 10px 15px;
-            background: rgba(0,0,0,0.5);
-            color: white;
-            border: 1px solid white;
-            border-radius: 5px;
-            cursor: pointer;
-            z-index: 100;
-        }
-        #fullscreen-btn:hover {
-            background: rgba(255,255,255,0.2);
         }
     </style>
 </head>
 <body>
-    <div id="video-container">
-        <video id="video-player" controls autoplay muted>
-            <source src="https://github.com/THEBWARE/Cevor/releases/download/Media/Recording.2025-03-31.202909.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
-    <button id="fullscreen-btn">Toggle Fullscreen</button>
+    <video id="videoPlayer" autoplay muted loop>
+        <source src="https://github.com/THEBWARE/Cevor/releases/download/Media/Recording.2025-03-31.202909.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
 
     <script>
-        const videoPlayer = document.getElementById('video-player');
-        const fullscreenBtn = document.getElementById('fullscreen-btn');
+        const video = document.getElementById('videoPlayer');
         
-        // Try to enter fullscreen automatically
-        function enterFullscreen() {
-            const elem = document.documentElement;
-            if (elem.requestFullscreen) {
-                elem.requestFullscreen();
-            } else if (elem.webkitRequestFullscreen) { /* Safari */
-                elem.webkitRequestFullscreen();
-            } else if (elem.msRequestFullscreen) { /* IE11 */
-                elem.msRequestFullscreen();
+        // Attempt to enter fullscreen automatically
+        function requestFullscreen() {
+            if (video.requestFullscreen) {
+                video.requestFullscreen().catch(e => console.log(e));
+            } else if (video.webkitRequestFullscreen) { /* Safari */
+                video.webkitRequestFullscreen();
+            } else if (video.msRequestFullscreen) { /* IE11 */
+                video.msRequestFullscreen();
             }
         }
         
-        // Toggle fullscreen on button click
-        fullscreenBtn.addEventListener('click', () => {
-            if (!document.fullscreenElement) {
-                enterFullscreen();
-            } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                }
-            }
-        });
-        
-        // Try to autoplay in fullscreen when page loads
+        // Try to play video and enter fullscreen when page loads
         document.addEventListener('DOMContentLoaded', () => {
-            enterFullscreen();
-            videoPlayer.play().catch(e => console.log("Autoplay prevented:", e));
+            video.play().catch(e => console.log("Autoplay prevented:", e));
+            requestFullscreen();
         });
         
-        // Make video fill available space when in fullscreen
-        videoPlayer.addEventListener('playing', () => {
-            videoPlayer.style.objectFit = 'cover';
+        // Also try when user clicks anywhere (to handle autoplay restrictions)
+        document.addEventListener('click', () => {
+            video.play();
+            requestFullscreen();
         });
     </script>
 </body>
