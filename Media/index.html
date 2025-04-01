@@ -24,22 +24,19 @@
     </style>
 </head>
 <body>
-    <h1>Folders</h1>
+    <h1>Videos</h1>
     <div class="container" id="folderList"></div>
 
     <script>
-        // Fetch the folders.json file
         fetch('folders.json')
             .then(response => response.json())
             .then(folders => {
                 const folderList = document.getElementById('folderList');
 
-                // Create buttons for each folder
                 folders.forEach(folder => {
                     const button = document.createElement('button');
                     button.textContent = folder.Text;
 
-                    // When the button is clicked, navigate to the folder (the Title is the folder path)
                     button.onclick = () => {
                         window.location.href = folder.Title;
                     };
