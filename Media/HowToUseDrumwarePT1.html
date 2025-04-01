@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How To Use Arcadia Part 1</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #000;
+            height: 100vh;
+        }
+        #video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body>
+    <div id="video-container">
+        <video id="videoPlayer" controls autoplay muted>
+            <source src="https://github.com/THEBWARE/Arcadia/releases/download/Media/Recording.2025-03-31.210410.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <script>
+        const video = document.getElementById('videoPlayer');
+        
+        // Function to enter fullscreen
+        function enterFullscreen() {
+            const elem = document.documentElement;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen().catch(e => console.log(e));
+            } else if (elem.webkitRequestFullscreen) { /* Safari */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE11 */
+                elem.msRequestFullscreen();
+            }
+        }
+        
+        // Try to enter fullscreen when video starts playing
+        video.addEventListener('play', () => {
+            enterFullscreen();
+        });
+        
+        // Also try when page loads (may not work due to browser restrictions)
+        document.addEventListener('DOMContentLoaded', () => {
+            video.play().catch(e => console.log("Autoplay prevented:", e));
+        });
+        
+        // Click anywhere to retry fullscreen
+        document.addEventListener('click', () => {
+            enterFullscreen();
+            video.play().catch(e => console.log(e));
+        });
+    </script>
+</body>
+</html>
