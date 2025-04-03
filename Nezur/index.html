@@ -340,6 +340,69 @@
             transform: translateX(5px);
         }
         
+        /* Comparison Section */
+        .comparison {
+            margin: 5rem 0;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .comparison-table th, 
+        .comparison-table td {
+            padding: 1.2rem 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .comparison-table th {
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .comparison-table tr:hover {
+            background: rgba(255, 255, 255, 0.07);
+        }
+        
+        .feature-name {
+            text-align: left;
+            font-weight: 500;
+        }
+        
+        .arcadia-cell {
+            color: var(--primary);
+            font-weight: 600;
+            position: relative;
+        }
+        
+        .arcadia-cell::after {
+            content: '✓';
+            color: #00ff88;
+            margin-left: 0.5rem;
+        }
+        
+        .other-cell {
+            opacity: 0.7;
+            position: relative;
+        }
+        
+        .other-cell::after {
+            content: '✗';
+            color: #ff5555;
+            margin-left: 0.5rem;
+        }
+        
         /* Download CTA */
         .download-cta {
             text-align: center;
@@ -450,6 +513,11 @@
             .features-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .comparison-table {
+                display: block;
+                overflow-x: auto;
+            }
         }
     </style>
 </head>
@@ -507,6 +575,55 @@
                     <p>Stable connections with automatic failover to keep your games running smoothly.</p>
                 </div>
             </div>
+        </section>
+        
+        <section class="comparison">
+            <div class="section-title">
+                <h2>Arcadia vs. Other APIs</h2>
+                <p>See how we outperform the competition</p>
+            </div>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Arcadia API</th>
+                        <th>Other APIs</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="feature-name">UNC Rate</td>
+                        <td class="arcadia-cell">Very High</td>
+                        <td class="other-cell">Low/Medium</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">SUNC Rate</td>
+                        <td class="arcadia-cell">Very High</td>
+                        <td class="other-cell">Low/Medium</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Script Support</td>
+                        <td class="arcadia-cell">99.99% of scripts</td>
+                        <td class="other-cell">Limited</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Custom Injection Title</td>
+                        <td class="arcadia-cell">Yes</td>
+                        <td class="other-cell">No</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Auto Update</td>
+                        <td class="arcadia-cell">Yes</td>
+                        <td class="other-cell">Manual</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Performance</td>
+                        <td class="arcadia-cell">Optimized</td>
+                        <td class="other-cell">Basic</td>
+                    </tr>
+                </tbody>
+            </table>
         </section>
         
         <section class="download-cta">
