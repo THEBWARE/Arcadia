@@ -1,1 +1,191 @@
-Coming SOON!
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown to April 3, 2025</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, #00dbde, #fc00ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+        
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+        
+        .countdown-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            min-width: 120px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .countdown-box:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .countdown-value {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin: 0;
+            background: linear-gradient(90deg, #f6d365, #fda085);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .countdown-label {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 0.5rem;
+            opacity: 0.7;
+        }
+        
+        .progress-container {
+            width: 80%;
+            max-width: 600px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 2rem 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #00dbde, #fc00ff);
+            width: 0%;
+            transition: width 1s ease;
+        }
+        
+        @media (max-width: 600px) {
+            .countdown-container {
+                gap: 0.8rem;
+            }
+            
+            .countdown-box {
+                min-width: 80px;
+                padding: 1rem;
+            }
+            
+            .countdown-value {
+                font-size: 2rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Countdown to April 3, 2025</h1>
+    <div class="subtitle">9:00 PM Eastern Time</div>
+    
+    <div class="countdown-container">
+        <div class="countdown-box">
+            <div class="countdown-value" id="days">00</div>
+            <div class="countdown-label">Days</div>
+        </div>
+        <div class="countdown-box">
+            <div class="countdown-value" id="hours">00</div>
+            <div class="countdown-label">Hours</div>
+        </div>
+        <div class="countdown-box">
+            <div class="countdown-value" id="minutes">00</div>
+            <div class="countdown-label">Minutes</div>
+        </div>
+        <div class="countdown-box">
+            <div class="countdown-value" id="seconds">00</div>
+            <div class="countdown-label">Seconds</div>
+        </div>
+    </div>
+    
+    <div class="progress-container">
+        <div class="progress-bar" id="progress"></div>
+    </div>
+
+    <script>
+        // Target date: April 3, 2025, 9:00 PM EST
+        // Create the date in UTC (EST is UTC-5, so we need to add 5 hours to get UTC time)
+        const targetDate = new Date('2025-04-04T02:00:00Z'); // 9PM EST is 2AM next day UTC
+        
+        // Total duration in milliseconds
+        const totalDuration = targetDate - new Date('2024-04-04T02:00:00Z'); // Using today as start for progress calculation
+        
+        function updateCountdown() {
+            const now = new Date();
+            const diff = targetDate - now;
+            
+            if (diff <= 0) {
+                document.querySelector('.countdown-container').innerHTML = `
+                    <div style="font-size: 2rem; padding: 2rem;">
+                        🎉 The wait is over! 🎉
+                    </div>
+                `;
+                document.getElementById('progress').style.width = '100%';
+                return;
+            }
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            
+            // Update progress bar
+            const elapsed = now - new Date('2024-04-04T02:00:00Z'); // Using today as start
+            const progressPercent = Math.min(100, (elapsed / totalDuration) * 100);
+            document.getElementById('progress').style.width = `${progressPercent}%`;
+        }
+        
+        // Update immediately and then every second
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
