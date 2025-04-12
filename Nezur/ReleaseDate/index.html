@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Countdown</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <title>Elegant Countdown</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #6C5CE7;
-            --secondary: #FD79A8;
-            --dark: #2D3436;
-            --light: #F5F6FA;
-            --accent: #00CEFF;
+            --primary: #5E35B1;
+            --secondary: #3949AB;
+            --accent: #00ACC1;
+            --dark: #121212;
+            --light: #FAFAFA;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --text-primary: rgba(255, 255, 255, 0.92);
+            --text-secondary: rgba(255, 255, 255, 0.7);
         }
         
         * {
@@ -21,15 +24,14 @@
         }
         
         body {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Inter', sans-serif;
             min-height: 100vh;
-            background: linear-gradient(135deg, var(--dark), #1E272E);
+            background: linear-gradient(135deg, #1A237E, #000000);
             color: var(--light);
             overflow-x: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            perspective: 1000px;
         }
         
         .particles {
@@ -43,17 +45,15 @@
         
         .container {
             width: 95%;
-            max-width: 1200px;
-            background: rgba(45, 52, 54, 0.7);
-            backdrop-filter: blur(15px);
-            border-radius: 30px;
-            padding: 3rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transform-style: preserve-3d;
-            animation: float 6s ease-in-out infinite;
-            overflow: hidden;
+            max-width: 900px;
+            background: rgba(18, 18, 18, 0.85);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 3.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             position: relative;
+            overflow: hidden;
         }
         
         .container::before {
@@ -63,39 +63,52 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(108, 92, 231, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
-            animation: rotate 20s linear infinite;
+            background: radial-gradient(circle, rgba(94, 53, 177, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+            animation: rotate 30s linear infinite;
             z-index: -1;
         }
         
         .header {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 3.5rem;
+            position: relative;
         }
         
         .title {
             font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
+            font-size: 3.2rem;
             font-weight: 700;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 1rem;
-            letter-spacing: 1px;
+            color: var(--light);
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.5px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .title::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 3px;
         }
         
         .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.8;
-            font-weight: 300;
-            letter-spacing: 2px;
+            font-size: 1.1rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            margin-top: 1.5rem;
+            color: var(--text-secondary);
         }
         
         .countdown {
             display: flex;
             justify-content: center;
-            gap: 2rem;
+            gap: 1.5rem;
             margin-bottom: 3rem;
             flex-wrap: wrap;
         }
@@ -105,64 +118,47 @@
             flex-direction: column;
             align-items: center;
             position: relative;
-            min-width: 180px;
+            min-width: 140px;
         }
         
         .countdown-card {
-            width: 180px;
-            height: 180px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
+            width: 140px;
+            height: 140px;
+            background: var(--card-bg);
+            border-radius: 18px;
             display: flex;
             justify-content: center;
             align-items: center;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            transform-style: preserve-3d;
-            transition: all 0.5s ease;
-            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
         
         .countdown-card:hover {
-            transform: translateY(-10px) scale(1.05);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-        }
-        
-        .countdown-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transform: translateX(-100%);
-            transition: 0.6s;
-        }
-        
-        .countdown-card:hover::before {
-            transform: translateX(100%);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.08);
         }
         
         .countdown-value {
-            font-size: 4.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            font-size: 3.2rem;
+            font-weight: 600;
+            font-family: 'Playfair Display', serif;
+            color: var(--light);
             position: relative;
             z-index: 1;
         }
         
         .countdown-label {
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            opacity: 0.7;
-            font-weight: 600;
-            margin-top: 0.5rem;
+            letter-spacing: 2px;
+            font-weight: 500;
+            margin-top: 0.3rem;
+            color: var(--text-secondary);
         }
         
         .progress-ring {
@@ -174,62 +170,55 @@
         }
         
         .progress-ring-circle {
-            stroke: url(#gradient);
-            stroke-width: 6;
+            stroke: var(--accent);
+            stroke-width: 4;
             stroke-linecap: round;
             fill: none;
             transition: stroke-dashoffset 0.5s ease;
+            opacity: 0.8;
         }
         
         .progress-ring-bg {
-            stroke: rgba(255, 255, 255, 0.1);
-            stroke-width: 6;
+            stroke: rgba(255, 255, 255, 0.08);
+            stroke-width: 4;
             fill: none;
         }
         
         .release-info {
             text-align: center;
-            margin-top: 2rem;
-            font-size: 1.2rem;
-            opacity: 0.8;
+            margin-top: 2.5rem;
+            font-size: 1.1rem;
             line-height: 1.6;
+            color: var(--text-secondary);
         }
         
         .highlight {
             color: var(--accent);
-            font-weight: 600;
+            font-weight: 500;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
         }
         
         .expired {
             text-align: center;
-            font-size: 3rem;
+            font-size: 2.8rem;
             font-weight: 700;
-            background: linear-gradient(135deg, var(--secondary), var(--accent));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            font-family: 'Playfair Display', serif;
+            color: var(--light);
             margin: 2rem 0;
             display: none;
-            animation: pulse 2s infinite;
+            animation: pulse 1.5s infinite;
         }
         
         .confetti {
             position: fixed;
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
             background: var(--accent);
             opacity: 0;
             z-index: 100;
-            animation: confetti 5s ease-in-out;
-        }
-        
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0) rotateY(0deg);
-            }
-            50% {
-                transform: translateY(-20px) rotateY(5deg);
-            }
+            animation: confetti 4s ease-in-out;
+            border-radius: 50%;
         }
         
         @keyframes rotate {
@@ -244,30 +233,33 @@
         @keyframes pulse {
             0%, 100% {
                 transform: scale(1);
+                opacity: 1;
             }
             50% {
                 transform: scale(1.05);
+                opacity: 0.9;
             }
         }
         
         @keyframes confetti {
             0% {
-                transform: translateY(0) rotate(0deg);
+                transform: translateY(0) rotate(0deg) scale(1);
                 opacity: 1;
             }
             100% {
-                transform: translateY(1000px) rotate(720deg);
+                transform: translateY(800px) rotate(720deg) scale(0.5);
                 opacity: 0;
             }
         }
         
         @media (max-width: 768px) {
             .container {
-                padding: 2rem 1.5rem;
+                padding: 2.5rem 1.5rem;
+                border-radius: 20px;
             }
             
             .title {
-                font-size: 2.5rem;
+                font-size: 2.4rem;
             }
             
             .subtitle {
@@ -279,20 +271,20 @@
             }
             
             .countdown-item {
-                min-width: 120px;
+                min-width: 100px;
             }
             
             .countdown-card {
-                width: 120px;
-                height: 120px;
+                width: 100px;
+                height: 100px;
             }
             
             .countdown-value {
-                font-size: 3rem;
+                font-size: 2.4rem;
             }
             
             .countdown-label {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
             }
             
             .expired {
@@ -306,8 +298,8 @@
     
     <div class="container">
         <div class="header">
-            <h1 class="title">Release Countdown</h1>
-            <p class="subtitle">The wait is almost over</p>
+            <h1 class="title">Countdown</h1>
+            <p class="subtitle">Until the special moment arrives</p>
         </div>
         
         <div class="countdown" id="countdown">
@@ -315,49 +307,71 @@
         </div>
         
         <div id="expired" class="expired">
-            IT'S HERE! 🎉
+            The Moment Has Arrived
         </div>
         
         <div class="release-info">
-            <p>Release scheduled for <span id="release-date" class="highlight"></span></p>
+            <p>Target date: <span id="release-date" class="highlight"></span></p>
             <p><span id="time-left" class="highlight"></span> remaining</p>
         </div>
-        
-        <svg width="0" height="0">
-            <defs>
-                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#6C5CE7" />
-                    <stop offset="100%" stop-color="#00CEFF" />
-                </linearGradient>
-            </defs>
-        </svg>
     </div>
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // Target time: April 5, 2025 (1744420500 epoch)
-        const targetTime = 1744420500 * 1000;
+        // Target time: April 5, 2025 18:00:00 GMT (1744423200 epoch)
+        const targetTime = 1744423200 * 1000;
         const countdownElement = document.getElementById('countdown');
         const expiredElement = document.getElementById('expired');
         const releaseDateElement = document.getElementById('release-date');
         const timeLeftElement = document.getElementById('time-left');
         
-        // Initialize particles.js
+        // Initialize particles.js with clean configuration
         particlesJS('particles-js', {
             particles: {
-                number: { value: 80, density: { enable: true, value_area: 800 } },
-                color: { value: "#6C5CE7" },
-                shape: { type: "circle" },
-                opacity: { value: 0.5, random: true },
-                size: { value: 3, random: true },
-                line_linked: { enable: true, distance: 150, color: "#6C5CE7", opacity: 0.3, width: 1 },
-                move: { enable: true, speed: 2, direction: "none", random: true, straight: false, out_mode: "out" }
+                number: { 
+                    value: 60, 
+                    density: { 
+                        enable: true, 
+                        value_area: 800 
+                    } 
+                },
+                color: { 
+                    value: "#5E35B1" 
+                },
+                shape: { 
+                    type: "circle"
+                },
+                opacity: {
+                    value: 0.5,
+                    random: true
+                },
+                size: {
+                    value: 3,
+                    random: true
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#5E35B1",
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 1,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out"
+                }
             },
             interactivity: {
                 detect_on: "canvas",
                 events: {
-                    onhover: { enable: true, mode: "repulse" },
-                    onclick: { enable: true, mode: "push" }
+                    onhover: {
+                        enable: true,
+                        mode: "repulse"
+                    }
                 }
             }
         });
@@ -402,15 +416,15 @@
             const secondsPercent = (seconds / 60) * 100;
             
             // Calculate circumference for progress rings (2πr)
-            const radius = 80;
+            const radius = 60;
             const circumference = 2 * Math.PI * radius;
             
             countdownElement.innerHTML = `
                 <div class="countdown-item">
                     <div class="countdown-card">
-                        <svg class="progress-ring" width="180" height="180">
-                            <circle class="progress-ring-bg" stroke-width="6" fill="transparent" r="${radius}" cx="90" cy="90"/>
-                            <circle class="progress-ring-circle" stroke-width="6" fill="transparent" r="${radius}" cx="90" cy="90" 
+                        <svg class="progress-ring" width="140" height="140">
+                            <circle class="progress-ring-bg" stroke-width="4" fill="transparent" r="${radius}" cx="70" cy="70"/>
+                            <circle class="progress-ring-circle" stroke-width="4" fill="transparent" r="${radius}" cx="70" cy="70" 
                                     stroke-dasharray="${circumference}" 
                                     stroke-dashoffset="${circumference - (daysPercent / 100 * circumference)}"/>
                         </svg>
@@ -420,9 +434,9 @@
                 </div>
                 <div class="countdown-item">
                     <div class="countdown-card">
-                        <svg class="progress-ring" width="180" height="180">
-                            <circle class="progress-ring-bg" stroke-width="6" fill="transparent" r="${radius}" cx="90" cy="90"/>
-                            <circle class="progress-ring-circle" stroke-width="6" fill="transparent" r="${radius}" cx="90" cy="90" 
+                        <svg class="progress-ring" width="140" height="140">
+                            <circle class="progress-ring-bg" stroke-width="4" fill="transparent" r="${radius}" cx="70" cy="70"/>
+                            <circle class="progress-ring-circle" stroke-width="4" fill="transparent" r="${radius}" cx="70" cy="70" 
                                     stroke-dasharray="${circumference}" 
                                     stroke-dashoffset="${circumference - (hoursPercent / 100 * circumference)}"/>
                         </svg>
@@ -432,9 +446,9 @@
                 </div>
                 <div class="countdown-item">
                     <div class="countdown-card">
-                        <svg class="progress-ring" width="180" height="180">
-                            <circle class="progress-ring-bg" stroke-width="6" fill="transparent" r="${radius}" cx="90" cy="90"/>
-                            <circle class="progress-ring-circle" stroke-width="6" fill="transparent" r="${radius}" cx="90" cy="90" 
+                        <svg class="progress-ring" width="140" height="140">
+                            <circle class="progress-ring-bg" stroke-width="4" fill="transparent" r="${radius}" cx="70" cy="70"/>
+                            <circle class="progress-ring-circle" stroke-width="4" fill="transparent" r="${radius}" cx="70" cy="70" 
                                     stroke-dasharray="${circumference}" 
                                     stroke-dashoffset="${circumference - (minutesPercent / 100 * circumference)}"/>
                         </svg>
@@ -444,9 +458,9 @@
                 </div>
                 <div class="countdown-item">
                     <div class="countdown-card">
-                        <svg class="progress-ring" width="180" height="180">
-                            <circle class="progress-ring-bg" stroke-width="6" fill="transparent" r="${radius}" cx="90" cy="90"/>
-                            <circle class="progress-ring-circle" stroke-width="6" fill="transparent" r="${radius}" cx="90" cy="90" 
+                        <svg class="progress-ring" width="140" height="140">
+                            <circle class="progress-ring-bg" stroke-width="4" fill="transparent" r="${radius}" cx="70" cy="70"/>
+                            <circle class="progress-ring-circle" stroke-width="4" fill="transparent" r="${radius}" cx="70" cy="70" 
                                     stroke-dasharray="${circumference}" 
                                     stroke-dashoffset="${circumference - (secondsPercent / 100 * circumference)}"/>
                         </svg>
@@ -458,17 +472,18 @@
         }
         
         function createConfetti() {
-            const colors = ['#6C5CE7', '#00CEFF', '#FD79A8', '#00B894', '#FDCB6E'];
+            const colors = ['#5E35B1', '#00ACC1', '#3949AB', '#00897B', '#7E57C2'];
             
             for (let i = 0; i < 150; i++) {
                 const confetti = document.createElement('div');
                 confetti.className = 'confetti';
                 confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.width = Math.random() * 10 + 5 + 'px';
-                confetti.style.height = Math.random() * 10 + 5 + 'px';
+                confetti.style.width = Math.random() * 12 + 5 + 'px';
+                confetti.style.height = Math.random() * 12 + 5 + 'px';
                 confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
                 confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
                 confetti.style.animationDelay = Math.random() * 5 + 's';
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
                 document.body.appendChild(confetti);
                 
                 // Remove confetti after animation
